@@ -1,0 +1,156 @@
+/* ========== BASE STYLES ========== */
+body {
+    margin: 0;
+    overflow-x: hidden;
+    font-family: 'Arial', sans-serif;
+    background: #ff99cc;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+/* ========== BACKGROUND SLIDESHOW ========== */
+.background-slideshow {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    z-index: 0;
+    display: flex;
+    overflow: hidden;
+}
+
+/* Hai phần ảnh nền */
+.background-left, .background-right {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    background-size: cover;  /* Đảm bảo ảnh luôn phủ kín */
+    background-position: center; /* Căn giữa ảnh */
+    background-repeat: no-repeat;
+    transition: opacity 1.5s ease-in-out;
+    opacity: 0;
+}
+
+/* Màn hình điện thoại hiển thị một ảnh nền */
+@media (max-width: 1024px) {
+    .background-slideshow {
+        flex-direction: column; /* Chuyển thành dạng cột */
+    }
+
+    .background-left, .background-right {
+        width: 100%; /* Mỗi ảnh chiếm 100% chiều rộng */
+        height: 100%; /* Mỗi ảnh chiếm 100% chiều cao */
+    }
+
+    /* Ẩn ảnh nền bên phải */
+    .background-right {
+        display: none;
+    }
+
+    /* Đảm bảo ảnh nền bên trái luôn phủ toàn màn hình */
+    .background-left {
+        background-position: center center; /* Căn giữa ảnh cho phù hợp */
+    }
+}
+
+/* Hiệu ứng fade-in cho background */
+.background-left.active {
+    opacity: 1;
+}
+
+/* ========== CONTAINER ========== */
+.container {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 20px;
+}
+
+/* Khung chứa tin nhắn */
+.text-container {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 30px;
+    border-radius: 15px;
+    backdrop-filter: blur(5px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    max-width: 650px;
+    width: 100%;
+    animation: growBox 0.5s ease-out forwards;
+}
+
+/* Hiệu ứng co giãn khung */
+@keyframes growBox {
+    from {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* ========== HIỂN THỊ VĂN BẢN ========== */
+.message {
+    font-size: 1.5rem;
+    line-height: 1.8;
+    text-align: center;
+    color: white !important;
+    margin: 10px auto;
+}
+
+/* Hiệu ứng typing */
+.typing-effect {
+    overflow: hidden;
+    white-space: nowrap;
+    width: 0;
+    border-right: 2px solid #fff; /* Con trỏ nhấp nháy */
+    animation: 
+        typing 3s steps(var(--char-count), end) forwards, 
+        blink-caret 0.75s step-end infinite;
+    margin: 10px 0;
+}
+
+/* Keyframes typing */
+@keyframes typing {
+    from { width: 0 }
+    to { width: 100% }
+}
+
+/* Keyframes con trỏ nhấp nháy */
+@keyframes blink-caret {
+    from, to { border-color: transparent }
+    50% { border-color: white; }
+}
+
+/* Tên người nhận */
+.recipient {
+    font-size: 2rem;
+    color: #ffeb3b;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    margin-bottom: 1rem;
+}
+
+/* Điều chỉnh cho các thiết bị di động */
+@media (max-width: 600px) {
+    .message {
+        
+        font-size: 1.2rem; /* Giảm kích thước font để dễ đọc trên di động */
+    }
+
+    .recipient {
+        font-size: 1.5rem; /* Giảm kích thước tên người nhận */
+    }
+
+    .text-container {
+        padding: 20px;
+        max-width: 90%;
+    }
+}
